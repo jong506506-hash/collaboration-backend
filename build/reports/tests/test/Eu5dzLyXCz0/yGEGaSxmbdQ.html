@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - managerCanCreateWorkItem()</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<div class="breadcrumbs">
+<a class="breadcrumb" href="../index.html">all</a> &gt; 
+<a class="breadcrumb" href="index.html">com.juteak.collaboration.AccessControlIntegrationTests</a> &gt; 
+<span class="breadcrumb">managerCanCreateWorkItem()</span>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a class="successGroup" href="#">Gradle Test Run :test</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Gradle Test Run :test</h2>
+<h1>managerCanCreateWorkItem()</h1>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a class="" href="#">summary</a>
+</li>
+<li>
+<a class="" href="#">standard output</a>
+</li>
+</ul>
+<div class="tab">
+<h2>summary</h2>
+<div>
+<div class="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox">
+<div class="counter">0</div>
+<p>skipped</p>
+</div>
+</td>
+<td>
+<div class="infoBox duration">
+<div class="counter">0.119s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="tab">
+<h2>standard output</h2>
+<span class="code">
+<pre id="root-0-test-stdout-managerCanCreateWorkItem()">2026-04-10T12:46:46.910+09:00 DEBUG 24776 --- [    Test worker] org.hibernate.SQL                        : select te1_0.id,te1_0.active,te1_0.description,te1_0.name,te1_0.team_code from collab_team te1_0 where te1_0.team_code=?
+2026-04-10T12:46:46.912+09:00 DEBUG 24776 --- [    Test worker] org.hibernate.SQL                        : insert into collab_team (active,description,name,team_code,id) values (?,?,?,?,default)
+2026-04-10T12:46:46.914+09:00 DEBUG 24776 --- [    Test worker] org.hibernate.SQL                        : select ue1_0.id,ue1_0.active,ue1_0.email,ue1_0.employee_number,ue1_0.name,ue1_0.password_hash,ue1_0.primary_team_id,ue1_0.role_title,ue1_0.user_role from collab_user ue1_0 where ue1_0.employee_number=?
+2026-04-10T12:46:46.915+09:00 DEBUG 24776 --- [    Test worker] org.hibernate.SQL                        : select te1_0.id,te1_0.active,te1_0.description,te1_0.name,te1_0.team_code from collab_team te1_0 where te1_0.team_code=?
+2026-04-10T12:46:46.993+09:00 DEBUG 24776 --- [    Test worker] org.hibernate.SQL                        : insert into collab_user (active,email,employee_number,name,password_hash,primary_team_id,role_title,user_role,id) values (?,?,?,?,?,?,?,?,default)
+2026-04-10T12:46:47.008+09:00 DEBUG 24776 --- [    Test worker] org.hibernate.SQL                        : select ue1_0.id,ue1_0.active,ue1_0.email,ue1_0.employee_number,ue1_0.name,ue1_0.password_hash,ue1_0.primary_team_id,ue1_0.role_title,ue1_0.user_role from collab_user ue1_0 where ue1_0.employee_number=?
+2026-04-10T12:46:47.014+09:00 DEBUG 24776 --- [    Test worker] org.hibernate.SQL                        : select wie1_0.id,wie1_0.backup_assignee_id,wie1_0.critical_knowledge_risk,wie1_0.due_date,wie1_0.last_reviewed_at,wie1_0.needs_handover,wie1_0.owning_team_id,wie1_0.primary_assignee_id,wie1_0.priority,wie1_0.summary,wie1_0.title,wie1_0.work_code,wie1_0.work_status from collab_work_item wie1_0 where wie1_0.work_code=?
+2026-04-10T12:46:47.017+09:00 DEBUG 24776 --- [    Test worker] org.hibernate.SQL                        : select te1_0.id,te1_0.active,te1_0.description,te1_0.name,te1_0.team_code from collab_team te1_0 where te1_0.team_code=?
+2026-04-10T12:46:47.019+09:00 DEBUG 24776 --- [    Test worker] org.hibernate.SQL                        : select ue1_0.id,ue1_0.active,ue1_0.email,ue1_0.employee_number,ue1_0.name,ue1_0.password_hash,ue1_0.primary_team_id,ue1_0.role_title,ue1_0.user_role from collab_user ue1_0 where ue1_0.employee_number=?
+2026-04-10T12:46:47.020+09:00 DEBUG 24776 --- [    Test worker] org.hibernate.SQL                        : insert into collab_work_item (backup_assignee_id,critical_knowledge_risk,due_date,last_reviewed_at,needs_handover,owning_team_id,primary_assignee_id,priority,summary,title,work_code,work_status,id) values (?,?,?,?,?,?,?,?,?,?,?,?,default)
+</pre>
+<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="root-0-test-stdout-managerCanCreateWorkItem()">Copy</button>
+</span>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 9.4.1</a> at 2026. 4. 10. 오후 12:46:48</p>
+</div>
+</div>
+</body>
+</html>
