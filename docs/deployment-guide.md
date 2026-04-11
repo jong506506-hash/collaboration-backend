@@ -22,6 +22,9 @@ Recommended starter setup:
 - Backend: Render or Railway
 - Database: PostgreSQL (for example Neon or Render Postgres)
 
+If Render does not show a native `Java` runtime in the Web Service screen, choose `Docker`.
+This repository includes a `Dockerfile`, so Render can build and run the Spring Boot app directly.
+
 ## Backend Environment Variables
 
 Set these in the deployed backend service:
