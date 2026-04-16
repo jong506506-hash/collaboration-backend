@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.juteak.collaboration.api.dto.PersonalWorkspaceDto;
+import com.juteak.collaboration.api.dto.QuestionKnowledgeDto;
 import com.juteak.collaboration.api.dto.QuestionThreadDto;
 import com.juteak.collaboration.application.QuestionThreadService;
 
@@ -63,5 +66,19 @@ public class QuestionThreadController {
 		@Valid @RequestBody QuestionThreadDto.StatusUpdateRequest request
 	) {
 		return questionThreadService.updateQuestionStatus(id, request);
+	}
+
+	@PostMapping("/{id}/knowledge-capture")
+	public PersonalWorkspaceDto.Response captureAnswerAsKnowledge(
+		@RequestHeader("X-Employee-Number") String actorEmployeeNumber,
+		@PathVariable Long id,
+		@Valid @RequestBody QuestionKnowledgeDto.CaptureRequest request
+	) {
+		return questionThreadService.captureAnswerAsKnowledge(
+			actorEmployeeNumber,
+			id,
+			request.answerId(),
+			request.targetWorkspaceEmployeeNumber()
+		);
 	}
 }

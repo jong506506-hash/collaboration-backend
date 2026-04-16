@@ -65,7 +65,7 @@ VITE_API_BASE_URL=https://<your-backend-domain>
 1. Provision PostgreSQL
 2. Deploy backend with database and CORS environment variables
 3. Deploy frontend with `VITE_API_BASE_URL` pointing to the backend
-4. Login with `ADMIN / admin1234`
+4. Create or approve an administrator account, then log in with that issued credential
 5. Create or approve real user accounts
 
 ## Same-WiFi Temporary Sharing

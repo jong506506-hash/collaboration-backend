@@ -1,6 +1,7 @@
 package com.juteak.collaboration.config;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,20 +22,27 @@ public class UserPasswordBootstrapper implements CommandLineRunner {
 	private final UserRepository userRepository;
 	private final TeamRepository teamRepository;
 	private final PasswordEncoder passwordEncoder;
+	private final boolean enabled;
 
 	public UserPasswordBootstrapper(
 		UserRepository userRepository,
 		TeamRepository teamRepository,
-		PasswordEncoder passwordEncoder
+		PasswordEncoder passwordEncoder,
+		@Value("${app.bootstrap.local-default-users.enabled:false}") boolean enabled
 	) {
 		this.userRepository = userRepository;
 		this.teamRepository = teamRepository;
 		this.passwordEncoder = passwordEncoder;
+		this.enabled = enabled;
 	}
 
 	@Override
 	@Transactional
 	public void run(String... args) {
+		if (!enabled) {
+			return;
+		}
+
 		TeamEntity bootstrapTeam = teamRepository.findByTeamCode("ADMIN")
 			.orElseGet(() -> teamRepository.save(new TeamEntity(
 				"ADMIN",

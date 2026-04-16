@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.juteak.collaboration.api.dto.QuestionThreadDto;
+import com.juteak.collaboration.api.dto.PersonalWorkspaceDto;
 import com.juteak.collaboration.persistence.entity.QuestionAnswerEntity;
 import com.juteak.collaboration.persistence.entity.QuestionStatus;
 import com.juteak.collaboration.persistence.entity.QuestionThreadEntity;
@@ -36,6 +37,7 @@ public class QuestionThreadService {
 	private final NotificationService notificationService;
 	private final UserStatusRepository userStatusRepository;
 	private final WorkItemRepository workItemRepository;
+	private final PersonalWorkspaceService personalWorkspaceService;
 
 	public QuestionThreadService(
 		QuestionThreadRepository questionThreadRepository,
@@ -44,7 +46,8 @@ public class QuestionThreadService {
 		TeamService teamService,
 		NotificationService notificationService,
 		UserStatusRepository userStatusRepository,
-		WorkItemRepository workItemRepository
+		WorkItemRepository workItemRepository,
+		PersonalWorkspaceService personalWorkspaceService
 	) {
 		this.questionThreadRepository = questionThreadRepository;
 		this.questionAnswerRepository = questionAnswerRepository;
@@ -53,6 +56,7 @@ public class QuestionThreadService {
 		this.notificationService = notificationService;
 		this.userStatusRepository = userStatusRepository;
 		this.workItemRepository = workItemRepository;
+		this.personalWorkspaceService = personalWorkspaceService;
 	}
 
 	@Transactional(readOnly = true)
@@ -129,6 +133,28 @@ public class QuestionThreadService {
 		QuestionThreadEntity thread = getRequiredThread(threadId);
 		thread.updateStatus(request.questionStatus(), request.resolutionSummary(), thread.getRoutedUser());
 		return toDetailResponse(thread, questionAnswerRepository.findByQuestionThreadIdOrderByCreatedAtAsc(threadId));
+	}
+
+	public PersonalWorkspaceDto.Response captureAnswerAsKnowledge(
+		String actorEmployeeNumber,
+		Long threadId,
+		Long answerId,
+		String targetWorkspaceEmployeeNumber
+	) {
+		QuestionThreadEntity thread = getRequiredThread(threadId);
+		QuestionAnswerEntity answer = questionAnswerRepository.findById(answerId)
+			.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Question answer not found: " + answerId));
+
+		if (!answer.getQuestionThread().getId().equals(thread.getId())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The selected answer does not belong to this question thread.");
+		}
+
+		return personalWorkspaceService.captureAnswerAsFaqKnowledge(
+			actorEmployeeNumber,
+			targetWorkspaceEmployeeNumber,
+			thread,
+			answer
+		);
 	}
 
 	private QuestionThreadEntity getRequiredThread(Long id) {
